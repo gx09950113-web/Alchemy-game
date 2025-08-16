@@ -15,9 +15,23 @@
       <img src="assets/images/9A733D88-8F55-4D17-983A-A15217E1D7F7.png" alt="丹爐" class="cauldron-img">
     </div>
 
-    <!-- 操作按鈕區 -->
+    <!-- 藥材按鈕區 -->
+    <div class="herb-list">
+      <button class="herb-btn" data-name="星瑩苔">🌿 星瑩苔</button>
+      <button class="herb-btn" data-name="白芍">🌼 白芍</button>
+      <button class="herb-btn" data-name="川芎">🪻 川芎</button>
+      <button class="herb-btn" data-name="蒲公英">☘️ 蒲公英</button>
+      <button class="herb-btn" data-name="乾薑">🔥 乾薑</button>
+    </div>
+
+    <!-- 已選藥材顯示 -->
+    <div id="selected-herbs">
+      <h3>已選藥材：</h3>
+      <ul id="herb-slot"></ul>
+    </div>
+
+    <!-- 控制按鈕 -->
     <div class="controls">
-      <button id="add-herb">添加藥材</button>
       <button id="start-brew">開始煉丹</button>
       <button id="reset">重置</button>
     </div>
