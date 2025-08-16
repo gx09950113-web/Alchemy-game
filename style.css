@@ -1,0 +1,44 @@
+body {
+  background-color: #1c1c1c;
+  color: #f0e6d2;
+  font-family: "Noto Serif TC", serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  padding: 20px;
+}
+
+.cauldron-container {
+  margin: 30px auto;
+  width: 300px;
+  height: 300px;
+}
+
+.cauldron-img {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 0 10px #ff8c00);
+}
+
+.controls {
+  margin-top: 30px;
+}
+
+.controls button {
+  background-color: #6c3;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.controls button:hover {
+  background-color: #85d670;
+}
