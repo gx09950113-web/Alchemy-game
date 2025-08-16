@@ -91,3 +91,4 @@ const recipeMap = {
     heat: 3
   }
 };
+new Audio('assets/sounds/success.mp3').play()
