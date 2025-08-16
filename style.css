@@ -20,6 +20,7 @@ h1 {
   margin: 30px auto;
   width: 300px;
   height: 300px;
+  position: relative;
 }
 
 .cauldron-img {
@@ -28,6 +29,34 @@ h1 {
   filter: drop-shadow(0 0 10px #ff8c00);
 }
 
+#animation-effect {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 200px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* 火候滑桿 */
+.heat-control {
+  margin: 30px auto 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  color: #fff5cc;
+  font-size: 16px;
+}
+
+#heat-level {
+  width: 150px;
+  accent-color: orange;
+}
+
+/* 藥材按鈕 */
 .herb-list {
   margin: 20px auto;
   display: flex;
@@ -50,6 +79,7 @@ h1 {
   background-color: #666;
 }
 
+/* 已選藥材 */
 #selected-herbs {
   margin-top: 20px;
 }
@@ -69,6 +99,7 @@ h1 {
   border: 1px solid #666;
 }
 
+/* 操作按鈕 */
 .controls {
   margin-top: 30px;
 }
@@ -87,17 +118,6 @@ h1 {
 
 .controls button:hover {
   background-color: #85d670;
-}
-
-#animation-effect {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 200px;
-  height: 200px;
-  pointer-events: none;
-  z-index: 10;
 }
 
 /* 成功動畫 */
