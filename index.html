@@ -29,6 +29,13 @@
       <button class="herb-btn" data-name="川芎">🪻 川芎</button>
       <button class="herb-btn" data-name="蒲公英">☘️ 蒲公英</button>
       <button class="herb-btn" data-name="乾薑">🔥 乾薑</button>
+      <button class="herb-btn" data-name="車前草">🌱 車前草</button>
+      <button class="herb-btn" data-name="荊芥">🍂 荊芥</button>
+      <button class="herb-btn" data-name="當歸">🌸 當歸</button>
+      <button class="herb-btn" data-name="桔梗">🌿 桔梗</button>
+      <button class="herb-btn" data-name="黃連">🌼 黃連</button>
+      <button class="herb-btn" data-name="茯苓">🍄 茯苓</button>
+      <button class="herb-btn" data-name="蘇葉">🍃 蘇葉</button>
     </div>
 
     <!-- 已選藥材 -->
@@ -41,9 +48,19 @@
     <div class="controls">
       <button id="start-brew">開始煉丹</button>
       <button id="reset">重置</button>
+      <button id="open-dex">查看丹藥圖鑑</button>
     </div>
-  </div>
 
-  <script src="script.js"></script>
+    <!-- 圖鑑彈窗 -->
+    <div id="dex-modal" class="modal hidden">
+      <div class="modal-content">
+        <span id="close-dex" class="close-btn">&times;</span>
+        <h2>丹藥圖鑑</h2>
+        <ul id="dex-list"></ul>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </div>
 </body>
 </html>
