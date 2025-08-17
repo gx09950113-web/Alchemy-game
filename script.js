@@ -1,70 +1,107 @@
-const selectedHerbs = [];
-const knownFormulas = {
-  "星瑩苔,白芍,川芎@中溫": "補氣丹",
-  "蒲公英,乾薑,車前草@高溫": "清熱丸",
-  "當歸,桔梗,荊芥@低溫": "疏風散",
-};
-
+const selectedHerbs = new Set();
+const herbButtons = document.querySelectorAll(".herb-btn");
 const brewBtn = document.getElementById("brew-btn");
-const catalog = document.getElementById("catalog");
-const toggleCatalog = document.getElementById("toggle-catalog");
+const catalogBtn = document.getElementById("toggle-catalog");
 const knownList = document.getElementById("known-formulas");
-
-const explosionGif = document.getElementById("explosion");
-const smokeGif = document.getElementById("smoke");
-
-const failSound = new Audio("assets/sounds/fail.mp3");
-const successSound = new Audio("assets/sounds/success.mp3");
-
+const explosion = document.getElementById("explosion");
+const smoke = document.getElementById("smoke");
+const catalog = document.getElementById("catalog");
+const successSound = document.getElementById("success-sound");
+const failSound = document.getElementById("fail-sound");
 const heatSlider = document.getElementById("heatSlider");
 const heatLabel = document.getElementById("heatLabel");
-const heatMap = ["低溫", "中溫", "高溫"];
+
+const knownFormulas = [];
+
+const recipes = [
+  {
+    name: "清神丹",
+    herbs: ["星瑩苔", "白芍", "川芎"],
+    heat: "中溫"
+  },
+  {
+    name: "強身丸",
+    herbs: ["乾薑", "車前草", "當歸"],
+    heat: "高溫"
+  },
+  {
+    name: "鎮痛散",
+    herbs: ["荊芥", "桔梗", "蒲公英"],
+    heat: "低溫"
+  }
+];
+
+function updateHeatLabel(value) {
+  const levels = { 1: "低溫", 2: "中溫", 3: "高溫" };
+  heatLabel.textContent = levels[value];
+}
 
 heatSlider.addEventListener("input", () => {
-  const level = parseInt(heatSlider.value);
-  heatLabel.textContent = heatMap[level - 1];
+  updateHeatLabel(heatSlider.value);
 });
 
-document.querySelectorAll(".herb-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const name = btn.dataset.name;
-    if (!selectedHerbs.includes(name)) {
-      selectedHerbs.push(name);
-      btn.disabled = true;
+herbButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    const name = button.getAttribute("data-name");
+    if (selectedHerbs.has(name)) {
+      selectedHerbs.delete(name);
+      button.classList.remove("selected");
+    } else {
+      selectedHerbs.add(name);
+      button.classList.add("selected");
     }
   });
 });
 
-toggleCatalog.addEventListener("click", () => {
+catalogBtn.addEventListener("click", () => {
   catalog.style.display = catalog.style.display === "none" ? "block" : "none";
 });
 
 brewBtn.addEventListener("click", () => {
-  const sortedHerbs = selectedHerbs.slice().sort().join(",");
-  const currentHeat = heatMap[parseInt(heatSlider.value) - 1];
-  const fullKey = `${sortedHerbs}@${currentHeat}`;
+  const herbsArray = Array.from(selectedHerbs).sort();
+  const currentHeat = heatLabel.textContent;
+  let found = false;
 
-  explosionGif.style.display = "none";
-  smokeGif.style.display = "none";
-
-  if (knownFormulas[fullKey]) {
-    smokeGif.style.display = "block";
-    successSound.play();
-    addToCatalog(knownFormulas[fullKey], `${sortedHerbs}（${currentHeat}）`);
-  } else {
-    explosionGif.style.display = "block";
-    failSound.play();
+  for (const recipe of recipes) {
+    const sortedRecipe = [...recipe.herbs].sort();
+    if (
+      JSON.stringify(herbsArray) === JSON.stringify(sortedRecipe) &&
+      recipe.heat === currentHeat
+    ) {
+      triggerSuccess(recipe.name);
+      found = true;
+      break;
+    }
   }
 
-  selectedHerbs.length = 0;
-  document.querySelectorAll(".herb-btn").forEach(btn => btn.disabled = false);
+  if (!found) triggerFailure();
+
+  // 清空選擇
+  selectedHerbs.clear();
+  herbButtons.forEach(btn => btn.classList.remove("selected"));
 });
 
-function addToCatalog(name, formulaDetail) {
-  const exists = [...knownList.children].some(li => li.textContent.includes(name));
-  if (!exists) {
+function triggerSuccess(name) {
+  smoke.style.display = "block";
+  explosion.style.display = "none";
+  successSound.play();
+
+  setTimeout(() => (smoke.style.display = "none"), 2000);
+
+  if (!knownFormulas.includes(name)) {
+    knownFormulas.push(name);
     const li = document.createElement("li");
-    li.textContent = `${name} ← ${formulaDetail}`;
+    li.textContent = `${name}（${heatLabel.textContent}）`;
     knownList.appendChild(li);
   }
+
+  alert(`成功煉成：${name}`);
+}
+
+function triggerFailure() {
+  explosion.style.display = "block";
+  smoke.style.display = "none";
+  failSound.play();
+  setTimeout(() => (explosion.style.display = "none"), 2000);
+  alert("煉丹失敗！");
 }
