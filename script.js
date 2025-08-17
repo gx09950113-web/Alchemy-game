@@ -21,7 +21,7 @@ document.querySelectorAll(".herb-btn").forEach(button => {
 
 document.getElementById("brew-btn").addEventListener("click", () => {
   const heat = parseInt(document.getElementById("heatSlider").value);
-  const formula = selectedHerbs.sort().join("+") + "+heat:" + heat;
+const formula = selectedHerbs.sort().join("+") + "+heat:" + heat;
 
   // 清除動畫
   smoke.classList.add("hidden");
