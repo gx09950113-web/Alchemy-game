@@ -10,6 +10,7 @@
   <div class="container">
     <h1>煉丹模擬器</h1>
 
+    <!-- 丹爐區 -->
     <div class="cauldron-container">
       <img src="assets/images/9A733D88-8F55-4D17-983A-A15217E1D7F7.png" alt="丹爐" class="cauldron-img">
       <div id="animation-effect"></div>
@@ -50,17 +51,17 @@
       <button id="reset">重置</button>
       <button id="open-dex">查看丹藥圖鑑</button>
     </div>
-
-    <!-- 圖鑑彈窗 -->
-    <div id="dex-modal" class="modal hidden">
-      <div class="modal-content">
-        <span id="close-dex" class="close-btn">&times;</span>
-        <h2>丹藥圖鑑</h2>
-        <ul id="dex-list"></ul>
-      </div>
-    </div>
-
-    <script src="script.js"></script>
   </div>
+
+  <!-- 丹藥圖鑑 Modal -->
+  <div id="dex-modal" class="modal hidden">
+    <div class="modal-content">
+      <span id="close-dex" class="close-btn">&times;</span>
+      <h2>丹藥圖鑑</h2>
+      <ul id="dex-list"></ul>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
