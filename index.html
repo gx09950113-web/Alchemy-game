@@ -11,7 +11,7 @@
     <h1>煉丹爐</h1>
 
     <!-- 丹爐圖片 -->
-    <img src="assets/images/9A733D88-8F55-4D17-983A-A15217E1D7F7.png" alt="丹爐" class="cauldron" />
+    <img src="assets/images/cauldron.png" alt="丹爐" class="cauldron" />
 
     <!-- 火候滑桿 -->
     <div class="heat-control">
@@ -32,14 +32,16 @@
       <button class="herb-btn" data-name="荊芥">荊芥</button>
     </div>
 
-    <!-- 按鈕區 -->
-    <button id="brew-btn">開始煉丹</button>
-    <button id="toggle-catalog">顯示/隱藏 丹藥圖鑑</button>
+    <!-- 操作按鈕 -->
+    <div class="controls">
+      <button id="brew-btn">開始煉丹</button>
+      <button id="toggle-catalog">顯示/隱藏 丹藥圖鑑</button>
+    </div>
 
-    <!-- 動畫 -->
+    <!-- 動畫區 -->
     <div class="animations">
-      <img id="explosion" src="assets/gif/explosion.gif" alt="爆炸效果" />
-      <img id="smoke" src="assets/gif/smoke.gif" alt="煙霧效果" />
+      <img id="explosion" src="assets/images/explosion.gif" alt="爆炸效果" />
+      <img id="smoke" src="assets/images/smoke.gif" alt="煙霧效果" />
     </div>
 
     <!-- 圖鑑 -->
@@ -49,6 +51,8 @@
     </div>
   </div>
 
+  <audio id="success-sound" src="assets/sounds/success.mp3"></audio>
+  <audio id="fail-sound" src="assets/sounds/fail.mp3"></audio>
   <script src="script.js"></script>
 </body>
 </html>
