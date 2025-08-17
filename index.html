@@ -2,46 +2,55 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>煉丹模擬器</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>煉丹模擬器</h1>
-    
-    <div class="cauldron-container">
-      <img src="images/cauldron.png" alt="丹爐" class="cauldron-img" />
-      <div id="animation-effect"></div>
-    </div>
+  <h1>🔮 煉丹模擬器 🔮</h1>
 
-    <div class="heat-control">
-      <label for="heat-level">火候：</label>
-      <input type="range" id="heat-level" min="1" max="10" value="5" />
-    </div>
-
-    <div class="herb-list" id="herb-list">
-      <!-- 動態加入藥材按鈕 -->
-    </div>
-
-    <div id="selected-herbs">
-      <ul id="herb-slot"></ul>
-    </div>
-
-    <div class="controls">
-      <button onclick="brewPotion()">開始煉丹</button>
-      <button onclick="openDex()">丹藥圖鑑</button>
-    </div>
+  <div id="cauldron-area">
+    <img id="cauldron" src="assets/images/9A733D88-8F55-4D17-983A-A15217E1D7F7.png" alt="丹爐">
+    <img id="smoke" src="assets/images/smoke.gif" class="effect hidden" />
+    <img id="explosion" src="assets/images/explosion.gif" class="effect hidden" />
   </div>
 
-  <!-- 丹藥圖鑑 Modal -->
-  <div id="potion-dex" class="modal">
-    <div class="modal-content">
-      <span class="close-btn" onclick="closeDex()">&times;</span>
-      <h2>丹藥圖鑑</h2>
-      <ul id="dex-list"></ul>
-    </div>
+  <!-- 火候控制 -->
+  <div class="slider-container">
+    🔥 火候控制：
+    <input type="range" id="heatSlider" min="1" max="10" value="5" />
   </div>
+
+  <!-- 藥材按鈕 -->
+  <div class="herb-list">
+    <button class="herb-btn" data-name="星瑩苔">🌿 星瑩苔</button>
+    <button class="herb-btn" data-name="白芍">🌼 白芍</button>
+    <button class="herb-btn" data-name="川芎">🪻 川芎</button>
+    <button class="herb-btn" data-name="蒲公英">☘️ 蒲公英</button>
+    <button class="herb-btn" data-name="乾薑">🔥 乾薑</button>
+    <button class="herb-btn" data-name="車前草">🌱 車前草</button>
+    <button class="herb-btn" data-name="荊芥">🍂 荊芥</button>
+    <button class="herb-btn" data-name="當歸">🌸 當歸</button>
+    <button class="herb-btn" data-name="桔梗">🌿 桔梗</button>
+    <button class="herb-btn" data-name="黃連">🌼 黃連</button>
+    <button class="herb-btn" data-name="茯苓">🍄 茯苓</button>
+    <button class="herb-btn" data-name="蘇葉">🍃 蘇葉</button>
+  </div>
+
+  <button id="brew-btn">開始煉丹</button>
+
+  <!-- 結果 -->
+  <div id="result"></div>
+
+  <!-- 圖鑑區塊 -->
+  <div id="encyclopedia" class="hidden">
+    <h2>📘 丹藥圖鑑</h2>
+    <div id="encyclopedia-content"></div>
+  </div>
+
+  <!-- 音效 -->
+  <audio id="success-sound" src="assets/sounds/success.mp3"></audio>
+  <audio id="fail-sound" src="assets/sounds/fail.mp3"></audio>
 
   <script src="script.js"></script>
 </body>
