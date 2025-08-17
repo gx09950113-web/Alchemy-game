@@ -1,54 +1,52 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>煉丹遊戲</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>🌿 煉丹模擬器</h1>
+  <div class="container">
+    <h1>煉丹爐</h1>
 
-  <!-- 藥材清單 -->
-  <div class="herb-list">
-    <button class="herb-btn" data-name="星瑩苔">🌿 星瑩苔</button>
-    <button class="herb-btn" data-name="白芍">🌼 白芍</button>
-    <button class="herb-btn" data-name="川芎">🪻 川芎</button>
-    <button class="herb-btn" data-name="蒲公英">☘️ 蒲公英</button>
-    <button class="herb-btn" data-name="乾薑">🔥 乾薑</button>
-    <button class="herb-btn" data-name="車前草">🌱 車前草</button>
-    <button class="herb-btn" data-name="荊芥">🍂 荊芥</button>
-    <button class="herb-btn" data-name="當歸">🌸 當歸</button>
-    <button class="herb-btn" data-name="桔梗">🌿 桔梗</button>
-    <button class="herb-btn" data-name="黃連">🌼 黃連</button>
-    <button class="herb-btn" data-name="茯苓">🍄 茯苓</button>
-    <button class="herb-btn" data-name="蘇葉">🍃 蘇葉</button>
-  </div>
+    <!-- 丹爐圖片 -->
+    <img src="assets/images/9A733D88-8F55-4D17-983A-A15217E1D7F7.png" alt="丹爐" class="cauldron" />
 
-  <!-- 火候拉桿 -->
-  <div class="slider-container">
-    🔥 火候控制：
-    <input type="range" id="heatSlider" min="1" max="3" value="2" />
-    <span id="heatLabel">中溫</span>
-  </div>
+    <!-- 火候滑桿 -->
+    <div class="heat-control">
+      <label for="heatSlider">火候：<span id="heatLabel">中溫</span></label>
+      <input type="range" id="heatSlider" min="1" max="3" step="1" value="2" />
+    </div>
 
-  <!-- 丹爐圖片 -->
-  <div class="cauldron-container">
-    <img src="assets/images/9A733D88-8F55-4D17-983A-A15217E1D7F7.png" alt="丹爐" id="cauldron">
-    <img src="assets/images/explosion.gif" id="explosion" class="effect" style="display:none;">
-    <img src="assets/images/smoke.gif" id="smoke" class="effect" style="display:none;">
-  </div>
+    <!-- 藥材選擇 -->
+    <div class="herbs">
+      <button class="herb-btn" data-name="星瑩苔">星瑩苔</button>
+      <button class="herb-btn" data-name="白芍">白芍</button>
+      <button class="herb-btn" data-name="川芎">川芎</button>
+      <button class="herb-btn" data-name="蒲公英">蒲公英</button>
+      <button class="herb-btn" data-name="乾薑">乾薑</button>
+      <button class="herb-btn" data-name="車前草">車前草</button>
+      <button class="herb-btn" data-name="當歸">當歸</button>
+      <button class="herb-btn" data-name="桔梗">桔梗</button>
+      <button class="herb-btn" data-name="荊芥">荊芥</button>
+    </div>
 
-  <!-- 煉丹按鈕 -->
-  <button id="brew-btn">開始煉丹</button>
+    <!-- 按鈕區 -->
+    <button id="brew-btn">開始煉丹</button>
+    <button id="toggle-catalog">顯示/隱藏 丹藥圖鑑</button>
 
-  <!-- 開關圖鑑按鈕 -->
-  <button id="toggle-catalog">📚 開啟／關閉丹藥圖鑑</button>
+    <!-- 動畫 -->
+    <div class="animations">
+      <img id="explosion" src="assets/gif/explosion.gif" alt="爆炸效果" />
+      <img id="smoke" src="assets/gif/smoke.gif" alt="煙霧效果" />
+    </div>
 
-  <!-- 丹藥圖鑑 -->
-  <div id="catalog" class="catalog">
-    <h2>📖 丹藥圖鑑</h2>
-    <ul id="known-formulas"></ul>
+    <!-- 圖鑑 -->
+    <div id="catalog" style="display:none;">
+      <h2>已知丹藥圖鑑</h2>
+      <ul id="known-formulas"></ul>
+    </div>
   </div>
 
   <script src="script.js"></script>
