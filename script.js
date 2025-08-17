@@ -29,24 +29,24 @@ const formula = selectedHerbs.sort().join("+") + "+heat:" + heat;
 
   // 丹藥配方對照
   const recipes = {
-    "星瑩苔+白芍+川芎+heat:5": {
-      name: "清靈丹",
-      effect: "清熱解毒、提神醒腦"
-    },
-    "蒲公英+乾薑+車前草+heat:6": {
-      name: "通絡丸",
-      effect: "活絡經脈、舒筋活血"
-    },
-    "荊芥+當歸+桔梗+heat:7": {
-      name: "護元丹",
-      effect: "增強免疫、護氣凝神"
-    },
-    "黃連+茯苓+蘇葉+heat:4": {
-      name: "寧神丸",
-      effect: "安神定志、解鬱寧心"
-    }
+  "星瑩苔+白芍+川芎+heat:medium": {
+    name: "清靈丹",
+    effect: "清熱解毒、提神醒腦"
+  },
+  "蒲公英+乾薑+車前草+heat:high": {
+    name: "通絡丸",
+    effect: "活絡經脈、舒筋活血"
+  },
+  "荊芥+當歸+桔梗+heat:high": {
+    name: "護元丹",
+    effect: "增強免疫、護氣凝神"
+  },
+  "黃連+茯苓+蘇葉+heat:low": {
+    name: "寧神丸",
+    effect: "安神定志、解鬱寧心"
+  }
+};
     // 更多配方可在這擴充
-  };
 
   const result = recipes[formula];
 
