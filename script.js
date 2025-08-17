@@ -1,125 +1,109 @@
-let selectedHerbs = [];
-
-const herbButtons = document.querySelectorAll('.herb-btn');
+const selectedHerbs = [];
 const herbSlot = document.getElementById('herb-slot');
-const animationDiv = document.getElementById('animation-effect');
 const heatSlider = document.getElementById('heat-level');
 const heatLabel = document.getElementById('heat-label');
+const animationEffect = document.getElementById('animation-effect');
 
-// 音效
-const successSound = new Audio('assets/sounds/success.mp3');
-const failSound = new Audio('assets/sounds/fail.mp3');
-
-// 火候變動顯示
+// 火候標籤更新
 heatSlider.addEventListener('input', () => {
-  heatLabel.textContent = ['低溫', '中溫', '高溫'][heatSlider.value - 1];
+  const levels = ['低溫', '中溫', '高溫'];
+  heatLabel.textContent = levels[heatSlider.value - 1];
 });
 
-// 點選藥材
-herbButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    const herb = button.dataset.name;
-    if (selectedHerbs.length >= 2 || selectedHerbs.includes(herb)) return;
-    selectedHerbs.push(herb);
+// 點選藥材加入
+document.querySelectorAll('.herb-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const herb = btn.dataset.name;
+    if (selectedHerbs.length < 3) {
+      selectedHerbs.push(herb);
+      updateHerbSlot();
+    }
+  });
+});
+
+// 顯示已選藥材
+function updateHerbSlot() {
+  herbSlot.innerHTML = '';
+  selectedHerbs.forEach(herb => {
     const li = document.createElement('li');
     li.textContent = herb;
     herbSlot.appendChild(li);
   });
-});
-
-// 配方資料庫
-const recipeMap = {
-  '星瑩苔+白芍': { result: '✔️ 成功煉出「清靈丸」！\n→ 淨化雜氣，稍提神識', heat: 2 },
-  '川芎+蒲公英': { result: '✔️ 成功煉出「行血丸」！\n→ 活血化瘀，跌打損傷適用', heat: 2 },
-  '乾薑+蒲公英': { result: '✔️ 成功煉出「溫陽散」！\n→ 祛寒暖身，助陽氣升騰', heat: 3 },
-  '車前草+白芍': { result: '✔️ 成功煉出「固氣丹」！\n→ 穩固下丹田靈氣，助入門修煉', heat: 2 },
-  '荊芥+蒲公英': { result: '✔️ 成功煉出「止痛丸」！\n→ 鎮痛止癢，內外皆用', heat: 1 },
-  '星瑩苔+當歸': { result: '✔️ 成功煉出「凝神丹」！\n→ 凝聚精神，輔助靈識穩定', heat: 2 },
-  '桔梗+黃連': { result: '✔️ 成功煉出「斷毒丹」！\n→ 解毒清熱，重病急救良方', heat: 3 },
-  '茯苓+蘇葉': { result: '✔️ 成功煉出「回靈丸」！\n→ 回復靈力，應急使用', heat: 1 }
-};
-
-// 圖鑑資料
-const DEX_KEY = 'unlockedPills';
-const dexData = {
-  '清靈丸': '→ 淨化雜氣，稍提神識',
-  '行血丸': '→ 活血化瘀，跌打損傷適用',
-  '溫陽散': '→ 祛寒暖身，助陽氣升騰',
-  '固氣丹': '→ 穩固下丹田靈氣，助入門修煉',
-  '止痛丸': '→ 鎮痛止癢，內外皆用',
-  '凝神丹': '→ 凝聚精神，輔助靈識穩定',
-  '斷毒丹': '→ 解毒清熱，重病急救良方',
-  '回靈丸': '→ 回復靈力，應急使用'
-};
-
-function getUnlockedPills() {
-  return JSON.parse(localStorage.getItem(DEX_KEY)) || [];
 }
 
-function unlockPill(name) {
-  const unlocked = getUnlockedPills();
-  if (!unlocked.includes(name)) {
-    unlocked.push(name);
-    localStorage.setItem(DEX_KEY, JSON.stringify(unlocked));
+// 煉丹結果資料庫
+const recipes = {
+  "星瑩苔+白芍+川芎|2": "養元丹",
+  "乾薑+蒲公英+車前草|1": "清炎丹",
+  "黃連+茯苓+荊芥|3": "定神丹",
+  "當歸+桔梗+蘇葉|2": "強體丹",
+  "星瑩苔+蘇葉+白芍|1": "活絡丹",
+  // 可自行新增更多配方
+};
+
+// 開始煉丹
+document.getElementById('start-brew').addEventListener('click', () => {
+  if (selectedHerbs.length !== 3) return alert("請選擇三種藥材");
+  const combo = [...selectedHerbs].sort().join('+') + '|' + heatSlider.value;
+  const result = recipes[combo];
+  animationEffect.className = ''; // 重置動畫效果
+
+  if (result) {
+    animationEffect.classList.add('success-effect');
+    alert(`煉成：${result}`);
+    unlockPill(result);
+  } else {
+    animationEffect.classList.add('fail-effect');
+    alert("煉丹失敗！");
+  }
+});
+
+// 重置按鈕
+document.getElementById('reset').addEventListener('click', () => {
+  selectedHerbs.length = 0;
+  updateHerbSlot();
+});
+
+// === 圖鑑功能 ===
+const dexBtn = document.getElementById('open-dex');
+const dexModal = document.getElementById('dex-modal');
+const closeDex = document.getElementById('close-dex');
+const dexList = document.getElementById('dex-list');
+
+// 開啟圖鑑
+dexBtn.addEventListener('click', () => {
+  dexModal.style.display = 'block';
+  updateDexList();
+});
+
+// 關閉圖鑑
+closeDex.addEventListener('click', () => {
+  dexModal.style.display = 'none';
+});
+
+// 圖鑑儲存與解鎖
+function unlockPill(pillName) {
+  const unlocked = JSON.parse(localStorage.getItem('pillDex') || '[]');
+  if (!unlocked.includes(pillName)) {
+    unlocked.push(pillName);
+    localStorage.setItem('pillDex', JSON.stringify(unlocked));
   }
 }
 
-function renderDex() {
-  const list = document.getElementById('dex-list');
-  list.innerHTML = '';
-  const unlocked = getUnlockedPills();
-
-  Object.keys(dexData).forEach(name => {
+function updateDexList() {
+  const unlocked = JSON.parse(localStorage.getItem('pillDex') || '[]');
+  dexList.innerHTML = '';
+  const allPills = Object.values(recipes).filter((v, i, a) => a.indexOf(v) === i);
+  allPills.forEach(pill => {
     const li = document.createElement('li');
-    li.textContent = unlocked.includes(name) ? `${name} ${dexData[name]}` : '？？？';
-    list.appendChild(li);
+    li.textContent = unlocked.includes(pill) ? pill : '？？？';
+    dexList.appendChild(li);
   });
 }
 
-// 煉丹按鈕
-document.getElementById('start-brew').addEventListener('click', () => {
-  if (selectedHerbs.length < 2) return alert('請選擇兩味藥材');
-  const key = selectedHerbs.sort().join('+');
-  const userHeat = parseInt(heatSlider.value);
-  const match = recipeMap[key];
-
-  animationDiv.className = '';
-  void animationDiv.offsetWidth;
-
-  if (match && match.heat === userHeat) {
-    successSound.currentTime = 0; successSound.play();
-    const pillName = match.result.match(/「(.+?)」/)?.[1];
-    if (pillName) unlockPill(pillName);
-    animationDiv.classList.add('success-effect');
-    setTimeout(() => animationDiv.className = '', 1500);
-    alert(match.result);
-  } else {
-    failSound.currentTime = 0; failSound.play();
-    animationDiv.classList.add('fail-effect');
-    setTimeout(() => animationDiv.className = '', 1500);
-    alert('❌ 煉丹失敗，藥材或火候不合...');
-  }
-});
-
-// 重置
-document.getElementById('reset').addEventListener('click', () => {
-  selectedHerbs = [];
-  herbSlot.innerHTML = '';
-  animationDiv.className = '';
-});
-
-// 圖鑑事件
-document.getElementById('open-dex').addEventListener('click', () => {
-  renderDex();
-  document.getElementById('dex-modal').style.display = 'block';
-});
-
-document.getElementById('close-dex').addEventListener('click', () => {
-  document.getElementById('dex-modal').style.display = 'none';
-});
-
+// 點擊外部區域關閉 Modal
 window.addEventListener('click', (e) => {
-  if (e.target.id === 'dex-modal') {
-    document.getElementById('dex-modal').style.display = 'none';
+  if (e.target === dexModal) {
+    dexModal.style.display = 'none';
   }
 });
