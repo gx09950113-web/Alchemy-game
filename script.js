@@ -1,94 +1,205 @@
-let selectedHerbs = [];
+body {
+  background-color: #1c1c1c;
+  color: #f0e6d2;
+  font-family: "Noto Serif TC", serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
 
-const herbButtons = document.querySelectorAll('.herb-btn');
-const herbSlot = document.getElementById('herb-slot');
-const animationDiv = document.getElementById('animation-effect');
-const heatSlider = document.getElementById('heat-level');
-const heatLabel = document.getElementById('heat-label');
+.container {
+  padding: 20px;
+}
 
-// 加入音效
-const successSound = new Audio('assets/sounds/success.mp3');
-const failSound = new Audio('assets/sounds/fail.mp3');
+h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
 
-// 火候文字顯示
-heatSlider.addEventListener('input', () => {
-  const value = parseInt(heatSlider.value);
-  heatLabel.textContent = value === 1 ? '低溫' : value === 2 ? '中溫' : '高溫';
-});
+.cauldron-container {
+  margin: 30px auto;
+  width: 300px;
+  height: 300px;
+  position: relative;
+}
 
-// 點選藥材
-herbButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    const herb = button.dataset.name;
+.cauldron-img {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 0 10px #ff8c00);
+}
 
-    if (selectedHerbs.length >= 2) {
-      alert('最多只能選兩種藥材');
-      return;
-    }
+#animation-effect {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 200px;
+  pointer-events: none;
+  z-index: 10;
+}
 
-    if (selectedHerbs.includes(herb)) {
-      alert('你已經選過這味藥材了');
-      return;
-    }
+.heat-control {
+  margin: 30px auto 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  color: #fff5cc;
+  font-size: 16px;
+}
 
-    selectedHerbs.push(herb);
-    const li = document.createElement('li');
-    li.textContent = herb;
-    herbSlot.appendChild(li);
-  });
-});
+#heat-level {
+  width: 150px;
+  accent-color: orange;
+}
 
-// 開始煉丹
-document.getElementById('start-brew').addEventListener('click', () => {
-  if (selectedHerbs.length < 2) {
-    alert('請選擇兩味藥材');
-    return;
+.herb-list {
+  margin: 20px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.herb-btn {
+  background-color: #444;
+  color: #fff;
+  border: 1px solid #888;
+  border-radius: 6px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.herb-btn:hover {
+  background-color: #666;
+}
+
+#selected-herbs {
+  margin-top: 20px;
+}
+
+#herb-slot {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+#herb-slot li {
+  padding: 8px 14px;
+  background-color: #333;
+  border-radius: 6px;
+  border: 1px solid #666;
+}
+
+.controls {
+  margin-top: 30px;
+}
+
+.controls button {
+  background-color: #6c3;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.controls button:hover {
+  background-color: #85d670;
+}
+
+.success-effect {
+  animation: shine 1.2s ease-out forwards;
+  background: radial-gradient(circle, #ffff99 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+@keyframes shine {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateX(-50%);
   }
-
-  const key = selectedHerbs.sort().join('+');
-  const userHeat = parseInt(heatSlider.value);
-  const match = recipeMap[key];
-
-  animationDiv.className = '';
-  void animationDiv.offsetWidth;
-
-  if (match && match.heat === userHeat) {
-    successSound.currentTime = 0;
-    successSound.play();
-
-    animationDiv.classList.add('success-effect');
-    setTimeout(() => animationDiv.className = '', 1500);
-    alert(match.result);
-  } else {
-    failSound.currentTime = 0;
-    failSound.play();
-
-    animationDiv.classList.add('fail-effect');
-    setTimeout(() => animationDiv.className = '', 1500);
-    alert('❌ 煉丹失敗，藥材或火候不合...');
+  50% {
+    opacity: 1;
+    transform: scale(1.2) translateX(-50%);
   }
-});
-
-// 重置按鈕
-document.getElementById('reset').addEventListener('click', () => {
-  selectedHerbs = [];
-  herbSlot.innerHTML = '';
-  animationDiv.className = '';
-});
-
-// 煉丹配方（含火候條件）
-const recipeMap = {
-  '星瑩苔+白芍': {
-    result: '✔️ 成功煉出「清靈丸」！\n→ 淨化雜氣，稍提神識',
-    heat: 2
-  },
-  '川芎+蒲公英': {
-    result: '✔️ 成功煉出「行血丸」！\n→ 活血化瘀，跌打損傷適用',
-    heat: 2
-  },
-  '乾薑+蒲公英': {
-    result: '✔️ 成功煉出「溫陽散」！\n→ 祛寒暖身，助陽氣升騰',
-    heat: 3
+  100% {
+    opacity: 0;
+    transform: scale(1.5) translateX(-50%);
   }
-};
-new Audio('assets/sounds/success.mp3').play()
+}
+
+.fail-effect {
+  animation: boom 1.2s ease-out forwards;
+  background: radial-gradient(circle, rgba(255, 0, 0, 0.6) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+@keyframes boom {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateX(-50%);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.3) translateX(-50%);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2) translateX(-50%);
+  }
+}
+
+/* 丹藥圖鑑 */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  background-color: #282828;
+  margin: 10% auto;
+  padding: 20px;
+  border: 2px solid #ccc;
+  width: 80%;
+  max-width: 500px;
+  color: #fff;
+  border-radius: 10px;
+}
+
+.close-btn {
+  float: right;
+  font-size: 24px;
+  cursor: pointer;
+  color: #aaa;
+}
+
+.close-btn:hover {
+  color: #fff;
+}
+
+#dex-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+#dex-list li {
+  margin: 10px 0;
+  font-size: 18px;
+  border-bottom: 1px dashed #555;
+  padding-bottom: 6px;
+}
