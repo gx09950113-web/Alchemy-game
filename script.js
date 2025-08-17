@@ -1,85 +1,76 @@
-const herbs = [
-  "玄息蘭",
-  "靈芝",
-  "赤炎果",
-  "冰心草",
-  "夜光花",
-  "玉露葉"
-];
+const selectedHerbs = [];
+const resultDiv = document.getElementById("result");
+const encyclopedia = document.getElementById("encyclopedia");
+const encyclopediaContent = document.getElementById("encyclopedia-content");
 
-const recipes = {
-  "玄息蘭,靈芝": "回氣丹",
-  "赤炎果,冰心草": "陽陰調和丹",
-  "夜光花,玉露葉": "凝神丸"
-};
+const cauldron = document.getElementById("cauldron");
+const smoke = document.getElementById("smoke");
+const explosion = document.getElementById("explosion");
 
-const potionDex = new Set();
+const successSound = document.getElementById("success-sound");
+const failSound = document.getElementById("fail-sound");
 
-function renderHerbs() {
-  const herbList = document.getElementById("herb-list");
-  herbList.innerHTML = "";
-  herbs.forEach(herb => {
-    const btn = document.createElement("button");
-    btn.className = "herb-btn";
-    btn.textContent = herb;
-    btn.onclick = () => selectHerb(herb);
-    herbList.appendChild(btn);
+document.querySelectorAll(".herb-btn").forEach(button => {
+  button.addEventListener("click", () => {
+    if (selectedHerbs.length >= 3) return;
+    const herb = button.dataset.name;
+    selectedHerbs.push(herb);
+    button.disabled = true;
   });
-}
+});
 
-const selected = [];
+document.getElementById("brew-btn").addEventListener("click", () => {
+  const heat = parseInt(document.getElementById("heatSlider").value);
+  const formula = selectedHerbs.sort().join("+") + "+heat:" + heat;
 
-function selectHerb(herb) {
-  if (selected.length >= 2) return;
-  selected.push(herb);
-  updateHerbSlot();
-}
+  // 清除動畫
+  smoke.classList.add("hidden");
+  explosion.classList.add("hidden");
 
-function updateHerbSlot() {
-  const slot = document.getElementById("herb-slot");
-  slot.innerHTML = "";
-  selected.forEach(h => {
-    const li = document.createElement("li");
-    li.textContent = h;
-    slot.appendChild(li);
-  });
-}
+  // 丹藥配方對照
+  const recipes = {
+    "星瑩苔+白芍+川芎+heat:5": {
+      name: "清靈丹",
+      effect: "清熱解毒、提神醒腦"
+    },
+    "蒲公英+乾薑+車前草+heat:6": {
+      name: "通絡丸",
+      effect: "活絡經脈、舒筋活血"
+    },
+    "荊芥+當歸+桔梗+heat:7": {
+      name: "護元丹",
+      effect: "增強免疫、護氣凝神"
+    },
+    "黃連+茯苓+蘇葉+heat:4": {
+      name: "寧神丸",
+      effect: "安神定志、解鬱寧心"
+    }
+    // 更多配方可在這擴充
+  };
 
-function brewPotion() {
-  const heat = parseInt(document.getElementById("heat-level").value, 10);
-  const animation = document.getElementById("animation-effect");
-  const key = selected.sort().join(",");
-  animation.className = ""; // reset
+  const result = recipes[formula];
 
-  void animation.offsetWidth; // trigger reflow
+  if (result) {
+    resultDiv.innerText = `✅ 成功煉製：${result.name}`;
+    smoke.classList.remove("hidden");
+    successSound.play();
 
-  if (recipes[key] && heat >= 4 && heat <= 7) {
-    const potion = recipes[key];
-    alert(`煉成成功！你獲得了 ${potion}`);
-    potionDex.add(potion);
-    animation.classList.add("success-effect");
+    // 顯示圖鑑
+    encyclopedia.classList.remove("hidden");
+    encyclopediaContent.innerHTML += `
+      <div class="encyclopedia-item">
+        <h3>${result.name}</h3>
+        <p>功效：${result.effect}</p>
+        <p>配方：${selectedHerbs.join(" + ")}，火候：${heat}</p>
+      </div>
+    `;
   } else {
-    alert("煉丹失敗！");
-    animation.classList.add("fail-effect");
+    resultDiv.innerText = "💥 煉丹失敗！";
+    explosion.classList.remove("hidden");
+    failSound.play();
   }
 
-  selected.length = 0;
-  updateHerbSlot();
-}
-
-function openDex() {
-  const list = document.getElementById("dex-list");
-  list.innerHTML = "";
-  [...potionDex].forEach(name => {
-    const li = document.createElement("li");
-    li.textContent = name;
-    list.appendChild(li);
-  });
-  document.getElementById("potion-dex").style.display = "block";
-}
-
-function closeDex() {
-  document.getElementById("potion-dex").style.display = "none";
-}
-
-renderHerbs();
+  // 重置
+  selectedHerbs.length = 0;
+  document.querySelectorAll(".herb-btn").forEach(b => b.disabled = false);
+});
