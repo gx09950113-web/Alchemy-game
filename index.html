@@ -11,7 +11,11 @@
     <h1>煉丹爐</h1>
 
     <!-- 丹爐圖片 -->
-    <img src="assets/images/cauldron.png" alt="丹爐" class="cauldron" />
+    <div class="cauldron-wrapper">
+      <img src="assets/images/cauldron.png" alt="丹爐" class="cauldron" />
+      <img id="explosion" src="assets/images/explosion.gif" alt="爆炸效果" class="effect" />
+      <img id="smoke" src="assets/images/smoke.gif" alt="煙霧效果" class="effect" />
+    </div>
 
     <!-- 火候滑桿 -->
     <div class="heat-control">
@@ -21,27 +25,24 @@
 
     <!-- 藥材選擇 -->
     <div class="herbs">
-      <button class="herb-btn" data-name="星瑩苔">星瑩苔</button>
-      <button class="herb-btn" data-name="白芍">白芍</button>
-      <button class="herb-btn" data-name="川芎">川芎</button>
-      <button class="herb-btn" data-name="蒲公英">蒲公英</button>
-      <button class="herb-btn" data-name="乾薑">乾薑</button>
-      <button class="herb-btn" data-name="車前草">車前草</button>
-      <button class="herb-btn" data-name="當歸">當歸</button>
-      <button class="herb-btn" data-name="桔梗">桔梗</button>
-      <button class="herb-btn" data-name="荊芥">荊芥</button>
+      <button class="herb-btn" data-name="星瑩苔">🌿 星瑩苔</button>
+      <button class="herb-btn" data-name="白芍">🌼 白芍</button>
+      <button class="herb-btn" data-name="川芎">🪻 川芎</button>
+      <button class="herb-btn" data-name="蒲公英">☘️ 蒲公英</button>
+      <button class="herb-btn" data-name="乾薑">🔥 乾薑</button>
+      <button class="herb-btn" data-name="車前草">🌱 車前草</button>
+      <button class="herb-btn" data-name="荊芥">🍂 荊芥</button>
+      <button class="herb-btn" data-name="當歸">🌸 當歸</button>
+      <button class="herb-btn" data-name="桔梗">🌿 桔梗</button>
+      <button class="herb-btn" data-name="黃連">🌼 黃連</button>
+      <button class="herb-btn" data-name="茯苓">🍄 茯苓</button>
+      <button class="herb-btn" data-name="蘇葉">🍃 蘇葉</button>
     </div>
 
     <!-- 操作按鈕 -->
-    <div class="controls">
+    <div class="actions">
       <button id="brew-btn">開始煉丹</button>
       <button id="toggle-catalog">顯示/隱藏 丹藥圖鑑</button>
-    </div>
-
-    <!-- 動畫區 -->
-    <div class="animations">
-      <img id="explosion" src="assets/images/explosion.gif" alt="爆炸效果" />
-      <img id="smoke" src="assets/images/smoke.gif" alt="煙霧效果" />
     </div>
 
     <!-- 圖鑑 -->
@@ -51,8 +52,8 @@
     </div>
   </div>
 
-  <audio id="success-sound" src="assets/sounds/success.mp3"></audio>
-  <audio id="fail-sound" src="assets/sounds/fail.mp3"></audio>
+  <audio id="successSound" src="assets/sounds/success.mp3"></audio>
+  <audio id="failSound" src="assets/sounds/fail.mp3"></audio>
   <script src="script.js"></script>
 </body>
 </html>
