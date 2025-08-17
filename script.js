@@ -1,85 +1,70 @@
-const herbs = [];
-const resultDiv = document.getElementById("result");
-const animationDiv = document.getElementById("animation");
-const successSound = document.getElementById("success-sound");
-const failSound = document.getElementById("fail-sound");
-const knownFormulas = document.getElementById("known-formulas");
-
-// 對應配方
-const recipes = {
-  "星瑩苔+白芍+川芎+heat:中溫": {
-    name: "清靈丹",
-    effect: "清熱解毒、提神醒腦"
-  },
-  "蒲公英+乾薑+車前草+heat:高溫": {
-    name: "通絡丸",
-    effect: "活絡經脈、舒筋活血"
-  },
-  "荊芥+當歸+桔梗+heat:高溫": {
-    name: "護元丹",
-    effect: "增強免疫、護氣凝神"
-  },
-  "黃連+茯苓+蘇葉+heat:低溫": {
-    name: "寧神丸",
-    effect: "安神定志、解鬱寧心"
-  }
+const selectedHerbs = [];
+const knownFormulas = {
+  "星瑩苔,白芍,川芎@中溫": "補氣丹",
+  "蒲公英,乾薑,車前草@高溫": "清熱丸",
+  "當歸,桔梗,荊芥@低溫": "疏風散",
 };
 
-document.querySelectorAll(".herb-btn").forEach(button => {
-  button.addEventListener("click", () => {
-    const name = button.getAttribute("data-name");
-    if (!herbs.includes(name) && herbs.length < 3) {
-      herbs.push(name);
-      button.disabled = true;
+const brewBtn = document.getElementById("brew-btn");
+const catalog = document.getElementById("catalog");
+const toggleCatalog = document.getElementById("toggle-catalog");
+const knownList = document.getElementById("known-formulas");
+
+const explosionGif = document.getElementById("explosion");
+const smokeGif = document.getElementById("smoke");
+
+const failSound = new Audio("assets/sounds/fail.mp3");
+const successSound = new Audio("assets/sounds/success.mp3");
+
+const heatSlider = document.getElementById("heatSlider");
+const heatLabel = document.getElementById("heatLabel");
+const heatMap = ["低溫", "中溫", "高溫"];
+
+heatSlider.addEventListener("input", () => {
+  const level = parseInt(heatSlider.value);
+  heatLabel.textContent = heatMap[level - 1];
+});
+
+document.querySelectorAll(".herb-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const name = btn.dataset.name;
+    if (!selectedHerbs.includes(name)) {
+      selectedHerbs.push(name);
+      btn.disabled = true;
     }
   });
 });
 
-// 火候滑桿顯示標籤
-const heatSlider = document.getElementById("heatSlider");
-const heatLabel = document.getElementById("heatLabel");
-
-heatSlider.addEventListener("input", () => {
-  const value = parseInt(heatSlider.value);
-  heatLabel.textContent = value === 1 ? "低溫" : value === 2 ? "中溫" : "高溫";
+toggleCatalog.addEventListener("click", () => {
+  catalog.style.display = catalog.style.display === "none" ? "block" : "none";
 });
 
-document.getElementById("brew-btn").addEventListener("click", () => {
-  if (herbs.length < 3) {
-    alert("請選擇三種藥材！");
-    return;
-  }
+brewBtn.addEventListener("click", () => {
+  const sortedHerbs = selectedHerbs.slice().sort().join(",");
+  const currentHeat = heatMap[parseInt(heatSlider.value) - 1];
+  const fullKey = `${sortedHerbs}@${currentHeat}`;
 
-  const heatText = heatSlider.value === "1" ? "低溫" : heatSlider.value === "2" ? "中溫" : "高溫";
-  const formula = herbs.sort().join("+") + "+heat:" + heatText;
+  explosionGif.style.display = "none";
+  smokeGif.style.display = "none";
 
-  animationDiv.innerHTML = "";
-  resultDiv.innerHTML = "";
-
-  if (recipes[formula]) {
-    const { name, effect } = recipes[formula];
-    resultDiv.innerHTML = `✅ 煉製成功！你獲得了「${name}」<br>💡 效果：${effect}`;
-    const img = document.createElement("img");
-    img.src = "assets/images/smoke.gif";
-    animationDiv.appendChild(img);
+  if (knownFormulas[fullKey]) {
+    smokeGif.style.display = "block";
     successSound.play();
-
-    // 圖鑑記錄
-    if (!document.getElementById(formula)) {
-      const li = document.createElement("li");
-      li.id = formula;
-      li.innerHTML = `<strong>${name}</strong>（${herbs.join(" + ")}，${heatText}）<br><small>${effect}</small>`;
-      knownFormulas.appendChild(li);
-    }
+    addToCatalog(knownFormulas[fullKey], `${sortedHerbs}（${currentHeat}）`);
   } else {
-    resultDiv.innerHTML = `❌ 煉製失敗，丹藥爆炸了！`;
-    const img = document.createElement("img");
-    img.src = "assets/images/explosion.gif";
-    animationDiv.appendChild(img);
+    explosionGif.style.display = "block";
     failSound.play();
   }
 
-  // 重置選擇
-  herbs.length = 0;
+  selectedHerbs.length = 0;
   document.querySelectorAll(".herb-btn").forEach(btn => btn.disabled = false);
 });
+
+function addToCatalog(name, formulaDetail) {
+  const exists = [...knownList.children].some(li => li.textContent.includes(name));
+  if (!exists) {
+    const li = document.createElement("li");
+    li.textContent = `${name} ← ${formulaDetail}`;
+    knownList.appendChild(li);
+  }
+}
