@@ -1,176 +1,98 @@
 body {
-  background-color: #1c1c1c;
-  color: #f0e6d2;
-  font-family: "Noto Serif TC", serif;
+  font-family: "Noto Sans TC", sans-serif;
   text-align: center;
+  background-color: #f4f0e8;
   margin: 0;
-  padding: 0;
-}
-
-.container {
   padding: 20px;
 }
 
 h1 {
-  font-size: 2rem;
-  margin-bottom: 10px;
+  color: #7b3f00;
 }
 
-.cauldron-container {
-  margin: 30px auto;
-  width: 300px;
-  height: 300px;
+#cauldron-area {
   position: relative;
+  display: inline-block;
+  margin-bottom: 20px;
 }
 
-.cauldron-img {
-  width: 100%;
-  height: auto;
-  filter: drop-shadow(0 0 10px #ff8c00);
+#cauldron {
+  width: 250px;
+  max-width: 90%;
 }
 
-#animation-effect {
+.effect {
   position: absolute;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 180px;
-  height: 180px;
-  pointer-events: none;
-  z-index: 10;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+  left: 0;
+  width: 250px;
+  max-width: 90%;
+  z-index: 2;
 }
 
-/* 成功：冒煙 */
-.success-effect {
-  background-image: url('images/smoke.gif');
-}
-
-/* 失敗：爆炸 */
-.fail-effect {
-  background-image: url('images/explosion.gif');
-}
-
-.heat-control {
-  margin: 30px auto 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  color: #fff5cc;
-  font-size: 16px;
-}
-
-#heat-level {
-  width: 150px;
-  accent-color: orange;
+.hidden {
+  display: none;
 }
 
 .herb-list {
-  margin: 20px auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
+  margin: 20px 0;
 }
 
 .herb-btn {
-  background-color: #444;
-  color: #fff;
-  border: 1px solid #888;
-  border-radius: 6px;
-  padding: 10px 16px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.herb-btn:hover {
-  background-color: #666;
-}
-
-#selected-herbs {
-  margin-top: 20px;
-}
-
-#herb-slot {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-#herb-slot li {
-  padding: 8px 14px;
-  background-color: #333;
-  border-radius: 6px;
-  border: 1px solid #666;
-}
-
-.controls {
-  margin-top: 30px;
-}
-
-.controls button {
-  background-color: #6c3;
-  color: #fff;
+  margin: 5px;
+  padding: 10px;
+  background-color: #e0c097;
   border: none;
-  padding: 10px 20px;
-  margin: 10px;
-  font-size: 16px;
-  cursor: pointer;
   border-radius: 8px;
-  transition: background-color 0.3s ease;
+  font-size: 14px;
+  cursor: pointer;
 }
 
-.controls button:hover {
-  background-color: #85d670;
+.herb-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
-/* 圖鑑 Modal */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+#brew-btn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #8b5e3c;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
-.modal-content {
-  background-color: #282828;
-  margin: 10% auto;
-  padding: 20px;
-  border: 2px solid #ccc;
-  width: 80%;
-  max-width: 500px;
-  color: #fff;
+#brew-btn:hover {
+  background-color: #7b4b2a;
+}
+
+.slider-container {
+  margin: 15px;
+  font-size: 16px;
+}
+
+#result {
+  margin: 20px;
+  font-size: 18px;
+  color: #7b3f00;
+}
+
+#encyclopedia {
+  background-color: #fff;
+  border: 1px solid #cdb092;
+  margin: 20px auto;
+  padding: 15px;
+  max-width: 90%;
   border-radius: 10px;
 }
 
-.close-btn {
-  float: right;
-  font-size: 24px;
-  cursor: pointer;
-  color: #aaa;
-}
-
-.close-btn:hover {
-  color: #fff;
-}
-
-#dex-list {
-  list-style: none;
-  padding-left: 0;
-}
-
-#dex-list li {
-  margin: 10px 0;
-  font-size: 18px;
-  border-bottom: 1px dashed #555;
-  padding-bottom: 6px;
+.encyclopedia-item {
+  border-top: 1px dashed #aaa;
+  padding-top: 10px;
+  margin-top: 10px;
 }
