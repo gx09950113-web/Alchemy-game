@@ -16,10 +16,14 @@
   </div>
 
   <!-- 火候控制 -->
-  <div class="slider-container">
-    🔥 火候控制：
-    <input type="range" id="heatSlider" min="1" max="10" value="5" />
-  </div>
+<div class="slider-container">
+  🔥 火候控制：
+  <select id="heatSelect">
+    <option value="low">低溫</option>
+    <option value="medium" selected>中溫</option>
+    <option value="high">高溫</option>
+  </select>
+</div>
 
   <!-- 藥材按鈕 -->
   <div class="herb-list">
