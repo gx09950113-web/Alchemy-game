@@ -1,92 +1,69 @@
 body {
-  font-family: "Noto Sans TC", sans-serif;
-  background: #fffaf0;
-  color: #333;
-  padding: 20px;
+  font-family: "微軟正黑體", sans-serif;
+  background-color: #f4f0e8;
+  margin: 0;
+  padding: 2em;
   text-align: center;
 }
 
-h1 {
-  font-size: 2em;
-  margin-bottom: 10px;
+.container {
+  max-width: 800px;
+  margin: auto;
+  background-color: #fffaf2;
+  border-radius: 12px;
+  padding: 2em;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
 }
 
-.herb-list {
-  margin: 10px auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+.cauldron {
+  width: 220px;
+  margin: 1em auto;
+  display: block;
+}
+
+.herbs {
+  margin: 1em 0;
 }
 
 .herb-btn {
-  margin: 5px;
-  padding: 10px 15px;
-  font-size: 1em;
+  margin: 6px;
+  padding: 8px 14px;
+  font-size: 16px;
+  background-color: #dcd1ba;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-  background: #d2f5c4;
-  border: 1px solid #aaa;
-  border-radius: 6px;
-  transition: 0.2s;
 }
 
 .herb-btn:disabled {
-  opacity: 0.5;
+  background-color: #aaa;
   cursor: not-allowed;
 }
 
-.slider-container {
-  margin: 20px 0;
-  font-weight: bold;
+.heat-control {
+  margin: 1em auto;
+  width: 60%;
 }
 
 input[type="range"] {
-  width: 200px;
-  accent-color: #c56b3d;
-  vertical-align: middle;
+  width: 100%;
 }
 
-#brew-btn {
-  padding: 10px 20px;
-  font-size: 1.2em;
-  background: #ffdf91;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+.animations {
+  position: relative;
+  height: 150px;
 }
 
-#result {
-  margin-top: 20px;
-  font-size: 1.2em;
+.animations img {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 100px;
+  transform: translateX(-50%);
+  display: none;
 }
 
-#animation img {
-  width: 200px;
-  margin-top: 10px;
-}
-
-.catalog {
-  margin-top: 30px;
+#catalog {
+  margin-top: 2em;
   text-align: left;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  background: #f8f8ff;
-  padding: 15px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
-.catalog h2 {
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-.catalog ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-.catalog li {
-  padding: 5px;
-  border-bottom: 1px dashed #bbb;
 }
