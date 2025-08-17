@@ -1,122 +1,151 @@
 body {
-  background-color: #1e1e1e;
-  font-family: "Noto Sans TC", sans-serif;
-  color: #fff;
+  background-color: #1c1c1c;
+  color: #f0e6d2;
+  font-family: "Noto Serif TC", serif;
   text-align: center;
   margin: 0;
   padding: 0;
 }
 
 .container {
-  max-width: 450px;
-  margin: auto;
   padding: 20px;
 }
 
+h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
 .cauldron-container {
+  margin: 30px auto;
+  width: 300px;
+  height: 300px;
   position: relative;
-  margin: 20px auto;
 }
 
 .cauldron-img {
   width: 100%;
-  max-width: 300px;
+  height: auto;
+  filter: drop-shadow(0 0 10px #ff8c00);
 }
 
 #animation-effect {
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 180px;
   pointer-events: none;
+  z-index: 10;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 
+/* 成功：冒煙 */
 .success-effect {
-  animation: glow 1s ease-out;
+  background-image: url('images/smoke.gif');
 }
 
+/* 失敗：爆炸 */
 .fail-effect {
-  animation: shake 0.5s;
+  background-image: url('images/explosion.gif');
 }
 
-@keyframes glow {
-  0% { box-shadow: 0 0 0px rgba(0,255,0,0); }
-  50% { box-shadow: 0 0 40px rgba(0,255,0,0.8); }
-  100% { box-shadow: 0 0 0px rgba(0,255,0,0); }
+.heat-control {
+  margin: 30px auto 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  color: #fff5cc;
+  font-size: 16px;
 }
 
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-8px); }
-  75% { transform: translateX(8px); }
+#heat-level {
+  width: 150px;
+  accent-color: orange;
 }
 
 .herb-list {
+  margin: 20px auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 8px;
-  margin-bottom: 10px;
+  gap: 10px;
 }
 
 .herb-btn {
   background-color: #444;
-  border: none;
+  color: #fff;
+  border: 1px solid #888;
   border-radius: 6px;
-  padding: 8px 12px;
-  color: white;
-  font-size: 14px;
+  padding: 10px 16px;
   cursor: pointer;
+  font-size: 16px;
 }
 
 .herb-btn:hover {
   background-color: #666;
 }
 
-.heat-control {
-  margin-bottom: 10px;
+#selected-herbs {
+  margin-top: 20px;
 }
 
-#selected-herbs ul {
-  padding-left: 0;
+#herb-slot {
   list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
-#selected-herbs li {
-  font-size: 16px;
-  margin-bottom: 5px;
+#herb-slot li {
+  padding: 8px 14px;
+  background-color: #333;
+  border-radius: 6px;
+  border: 1px solid #666;
+}
+
+.controls {
+  margin-top: 30px;
 }
 
 .controls button {
-  margin: 5px;
-  padding: 8px 14px;
-  font-size: 15px;
+  background-color: #6c3;
+  color: #fff;
   border: none;
-  border-radius: 6px;
-  background-color: #2e7d32;
-  color: white;
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 16px;
   cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
 }
 
 .controls button:hover {
-  background-color: #388e3c;
+  background-color: #85d670;
 }
 
+/* 圖鑑 Modal */
 .modal {
   display: none;
   position: fixed;
   z-index: 999;
-  left: 0; top: 0;
-  width: 100%; height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .modal-content {
   background-color: #282828;
-  margin: 12% auto;
+  margin: 10% auto;
   padding: 20px;
-  border: 2px solid #aaa;
+  border: 2px solid #ccc;
   width: 80%;
   max-width: 500px;
   color: #fff;
@@ -132,4 +161,16 @@ body {
 
 .close-btn:hover {
   color: #fff;
+}
+
+#dex-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+#dex-list li {
+  margin: 10px 0;
+  font-size: 18px;
+  border-bottom: 1px dashed #555;
+  padding-bottom: 6px;
 }
