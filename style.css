@@ -1,99 +1,81 @@
 body {
   font-family: "Noto Sans TC", sans-serif;
-  background-color: #fef8ec;
-  color: #333;
-  margin: 0;
-  padding: 0;
+  background: #fff9f0;
+  text-align: center;
+  padding: 1rem;
 }
 
 .container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 1rem;
-  text-align: center;
+  max-width: 500px;
+  margin: auto;
+}
+
+.cauldron-wrapper {
+  position: relative;
+  display: inline-block;
 }
 
 .cauldron {
-  max-width: 80%;
-  margin: 1rem auto;
-  display: block;
+  width: 100%;
+  max-width: 300px;
+}
+
+.effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: none;
+  pointer-events: none;
 }
 
 .heat-control {
   margin: 1rem 0;
 }
 
-input[type="range"] {
-  width: 80%;
-  margin-top: 0.5rem;
-}
-
 .herbs {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 1rem;
+  gap: 0.5rem;
 }
 
 .herb-btn {
   padding: 0.5rem 1rem;
-  margin: 0.3rem;
-  border: 2px solid #888;
-  background-color: #fff8e7;
-  cursor: pointer;
-  border-radius: 8px;
-  transition: 0.3s;
-}
-
-.herb-btn.selected {
-  background-color: #ffdd99;
-  border-color: #e69500;
-}
-
-.controls button {
-  margin: 0.5rem;
-  padding: 0.6rem 1.2rem;
-  background-color: #ffb84d;
   border: none;
+  background-color: #e8cfa8;
   border-radius: 6px;
   cursor: pointer;
   font-size: 1rem;
+  transition: background-color 0.3s;
 }
 
-.controls button:hover {
-  background-color: #ffa31a;
+.herb-btn:disabled {
+  background-color: #c2b59b;
+  cursor: not-allowed;
 }
 
-.animations {
-  position: relative;
-  height: 100px;
+.actions {
+  margin: 1rem 0;
 }
 
-.animations img {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  max-height: 100px;
-  display: none;
+button {
+  padding: 0.5rem 1.2rem;
+  margin: 0.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #db9052;
+  color: white;
+  cursor: pointer;
 }
 
 #catalog {
-  margin-top: 1rem;
   text-align: left;
-  background: #fffdf5;
-  border: 1px solid #e6cfa8;
-  padding: 1rem;
-  border-radius: 8px;
+  margin-top: 1rem;
 }
 
-@media screen and (max-width: 600px) {
-  .herbs {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  input[type="range"] {
-    width: 100%;
-  }
+#catalog ul {
+  list-style: none;
+  padding-left: 0;
 }
