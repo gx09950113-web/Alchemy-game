@@ -17,8 +17,17 @@ body {
 
 .cauldron {
   width: 220px;
-  margin: 1em auto;
+  margin: 1.5em auto 1em auto;
   display: block;
+}
+
+.heat-control {
+  margin: 1em auto;
+  width: 60%;
+}
+
+input[type="range"] {
+  width: 100%;
 }
 
 .herbs {
@@ -38,15 +47,6 @@ body {
 .herb-btn:disabled {
   background-color: #aaa;
   cursor: not-allowed;
-}
-
-.heat-control {
-  margin: 1em auto;
-  width: 60%;
-}
-
-input[type="range"] {
-  width: 100%;
 }
 
 .animations {
